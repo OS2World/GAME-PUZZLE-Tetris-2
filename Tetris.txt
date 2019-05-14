@@ -1,0 +1,129 @@
+	    TETRIS/2
+	    --------
+
+TETRIS/2 is a game of tetris for OS/2. This game is playable as a standalone
+program or as a "door"-program within a BBS (e.g. Maximus). For BBS operation
+the COMM.DLL (or MAXCOMM.DLL) is needed from Maximus OS/2.
+
+The aim of the game is to fit the blocks falling down in the pit in those
+already lying on the bottom of it. If a horizontal level is completely filled,
+it disapears. The game is over when the pit is filled up to the top. To fit
+the blocks together as good as possible you can use the following keys:
+
+	<left>	= moves the block to the left
+	<right> = moves the block to the right
+	<up>	= rotates the block clockwise
+	<down>	= rotates the block counterclockwise
+	<space> = drops the block very fast to the bottom
+
+	In BBS operation the Number keys 2,4,6 and 8 are also allowed.
+
+	The counting of points is affected by the following conditions:
+
+	o blocks with edges give more points than straight ones
+	o "random" blocks have a higher level also
+	o dropping of blocks adds points proportional to the height
+
+
+There are some additional keys for the user available.
+
+	<R> toggle "random" shapes ON/OFF
+	<B> switch "BEEP" ON/OFF
+	<E> exit the game immediately without saving the score
+
+
+
+Calling conventions:
+--------------------
+
+For normal use:
+
+        TETRIS      [ -l # -n user name -m<filename> ]
+
+For bbs use:
+
+        TETRIS -p # [ -l # -n user name -m<filename> -r # ]
+
+
+  -p  # 	    gives the handle for the COM device as supplied by the BBS
+		    program.
+
+  -r  # 	    gives the time remaining for the user in the BBS; if not
+		    supplied there is NO time limit.
+
+  -l  # 	    gives the starting level; if not supplied the user is asked
+		    for the starting level wanted.
+
+  -n user name	    gives the username (may be more than one word). If not
+                    supplied the user is asked for his name.
+
+  -m <filename>     Filename (including drive and path) of the high score data
+
+
+
+Example for bbs use of Tetris/2 V1.3 in MAXIMUS CBCS 2.0
+
+  UsrRemote Xtern_Run  TETRIS.EXE_-p%P_-n%n_-l0_-k%k_-r%t  Disgrace "Tetris/2"
+
+
+(c) 1991,1992   Markus Noller
+                Am Sommerrain 8
+                7153 Weissach im Tal
+                2:244/7056@fidonet
+
+  modified from
+                (c) 1988   R.A. van Wier
+                Nwe Prinsengr. 60 II
+                1018 VT  Amsterdam
+
+  this was derived from the original tetris program from
+	   A. Pajitnov & V. Gerasimov.
+
+	   This software may be used for private use in HOME and
+	   NONCOMMERCIAL bulletin board systems under the condition
+	   that the source code is delivered with.
+
+	   Keep Freeware VIRUS free, supply the source code !
+
+    08-88  changes by Wizard of Frobozz
+
+	   - changed to small model for speed
+
+	   - first OS/2 implementation
+
+		* OS/2 version accesses directly the video memory
+
+		* Timing problems makes OS/2 version faster than DOS
+
+
+    01-91  changes by Markus Noller
+
+	   - OS/2-only version, direct memory access removed
+
+	   - multithread implementation, because old version HOGS the CPU
+
+	   - BBS implementation, uses COMM.DLL of Maximus
+
+		* for NON-BBS operation COMM.DLL is NOT necessary
+
+	   - removed mouse interface
+
+	   - all comments changed from dutch to english
+
+
+   08-91 further changes by Markus Noller
+
+	   -removed a smaller bug in semaphore handling, which did
+	    arise only in OS/2 1.0 systems, fixed now for ALL systems
+
+
+   12-91 further changes by Markus Noller
+
+	   -included MAXCOMM.DLL, now COMM.DLL *OR* MAXCOMM.DLL
+	    can be used by TETRIS/2 in DOOR mode !
+
+   01-92 further changes by Markus Noller
+
+           -included automatic multiline support
+           -free filename and directory location for the highscore file
+            ("-m" parameter)
